@@ -17,10 +17,10 @@
 ```powershell
 python -m venv .venv
 .venv/Scripts/python -m pip install -r requirements.txt
-.venv/Scripts/python -m uvicorn app:app --host 127.0.0.1 --port 8765
+.venv/Scripts/python -m uvicorn app:app --host 127.0.0.1 --port 8876
 ```
 
-打开 http://127.0.0.1:8765 。模型仅发送到此本地服务，在临时目录解析后删除。
+打开 http://127.0.0.1:8876 。模型仅发送到此本地服务，在临时目录解析后删除。
 
 ## 尺寸库
 
