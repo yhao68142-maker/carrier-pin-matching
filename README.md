@@ -1,0 +1,53 @@
+# 载条定位销尺寸匹配
+
+独立网页模块：STEP/STP 实体解析、定位销候选识别、三维预览、轴心复核及 Excel 双尺寸匹配（各 ±0.01 mm）。
+
+## 测量定义
+
+以载条平面为基准，最长直边为横向 X，平面内正交方向为业务 Y。图四对应 X=136.9 mm、Y=57 mm（原 CAD 截图为 dZ）。斜向中心距 148.29 mm 和外形 180×92 mm 不用于定位销匹配。
+
+使用 CadQuery / OpenCascade 读取解析圆柱轴线，筛选垂直基准面的外圆柱并合并同轴候选。视图使用三角网格，但测量不使用网格或图片像素。每次测量需要用户确认候选轴心及方向；自动基准不适合所有复杂装配，建议导出单个载条。STL 和截图不支持精确轴线测量。
+
+匹配采用十进制比较，X/Y 各允许 ±0.01 mm，包含边界，两个方向必须同时满足。不按显示精度舍入，不自动交换 X/Y。标准 136.9×57 时，136.91×56.99 命中，136.91000001×57 不命中。页面保留原始测量值，结果显示 ΔX/ΔY，手工查询明确标为手工值。公差只用于匹配，不是 CAD 测量精度承诺。
+
+## 本地启动
+
+需要 Python 3.12。推荐使用虚拟环境：
+
+```powershell
+python -m venv .venv
+.venv/Scripts/python -m pip install -r requirements.txt
+.venv/Scripts/python -m uvicorn app:app --host 127.0.0.1 --port 8765
+```
+
+打开 http://127.0.0.1:8765 。模型仅发送到此本地服务，在临时目录解析后删除。
+
+## 尺寸库
+
+已从用户 Excel 抽取 65 条尺寸记录。`data/catalog.json` 为内嵌运行数据，不需要每次上传 Excel。仓库为私有，仅包含匹配所需字段及来源，不包含完整工作簿。缺少文件时页面显示 0 条，不伪造数据。
+
+重新抽取时安装 openpyxl，然后运行：
+
+```powershell
+python tools/import_catalog.py "通用料盒信息&压料机构进度.xlsx"
+```
+
+提取“治具料盒信息统计”和“治具料盒信息统计（CB端）”中 D 列为“载条定位销尺寸”的记录，E 列解析为 X*Y。合并单元格追溯关联项目代码、机种；保留原字段和单元格来源，同尺寸多机种全部展示。源 Excel 始终只读。
+
+## 验证
+
+```powershell
+python -m pip install -r requirements-dev.txt
+python -m unittest -v
+```
+
+覆盖 ±0.01 mm 内外与边界、单方向超差、方向交换拒绝、无效值，以及生成的真实 STEP 双销载条（含孔、旋转）的几何测量。尚需用户实际 STEP 样件验证复杂结构。
+
+## 部署说明
+
+本项目需要 Python CAD 后端，GitHub Pages 无法单独执行 STEP 解析。可以在支持 Python 3.12 和上述依赖的机器启动，或使用 Docker。默认监听本地；公开部署前应配置登录、请求限流和资源隔离。
+
+定位销间距相同不代表载条完全通用，需继续核对销径、销位方向和产品穴等结构。
+
+CAD 导入参考：https://cadquery.readthedocs.io/en/latest/importexport.html
+
