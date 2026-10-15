@@ -50,4 +50,3 @@ python -m unittest -v
 定位销间距相同不代表载条完全通用，需继续核对销径、销位方向和产品穴等结构。
 
 CAD 导入参考：https://cadquery.readthedocs.io/en/latest/importexport.html
-
