@@ -12,6 +12,10 @@ app = FastAPI(title='载条定位销尺寸匹配')
 DATA = ROOT/'data'/'catalog.json'
 records = json.loads(DATA.read_text(encoding='utf-8')) if DATA.exists() else []
 
+@app.get('/healthz')
+def health():
+    return {'status':'ok','catalogRecords':len(records)}
+
 @app.get('/api/catalog')
 def catalog():
     return records

@@ -5,6 +5,7 @@ from app import app
 class ApiTests(unittest.TestCase):
     def setUp(self): self.client=TestClient(app)
     def test_home_and_catalog(self):
+        self.assertEqual(self.client.get('/healthz').json()['status'],'ok')
         self.assertEqual(self.client.get('/').status_code,200)
         self.assertEqual(self.client.get('/static/app.js').status_code,200)
         self.assertIsInstance(self.client.get('/api/catalog').json(),list)
