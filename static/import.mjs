@@ -11,6 +11,13 @@ export const stageStep=stage=>stage==='uploading'||stage==='receiving'?1:
  ['basis','outline','pins'].includes(stage)?3:
  ['preview','saving','downloading'].includes(stage)?4:5;
 
+// Stage weights are estimates, never elapsed-time or geometric completion measurements.
+export function overallPercent(state,previous=0){
+ const weights={receiving:15,starting:18,reading:20,transferring:30,basis:65,outline:70,pins:75,preview:85,saving:92,downloading:96,done:100};
+ const next=state.stage==='uploading'?Math.round((state.percent||0)*.15):(weights[state.stage]??previous);
+ return state.stage==='done'?100:Math.min(99,Math.max(previous,next));
+}
+
 export function uploadJob(file,report){
  return new Promise((resolve,reject)=>{
   const xhr=new XMLHttpRequest();xhr.open('POST','/api/jobs');xhr.timeout=300000;

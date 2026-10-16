@@ -2,7 +2,7 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {api} from './static/api.mjs';
 import {renderResults} from './static/results.mjs';
-import {importModel,stageStep} from './static/import.mjs';
+import {importModel,stageStep,overallPercent} from './static/import.mjs';
 
 test('upload percentage comes from bytes; parsing uses stages until result arrives',async()=>{
  const oldXHR=globalThis.XMLHttpRequest,oldFetch=globalThis.fetch;const stages=[];
@@ -42,4 +42,14 @@ test('valid response, empty body, truncated body, and proxy errors',async()=>{
     globalThis.fetch=async()=>{throw new TypeError('Failed to fetch')};
     await assert.rejects(api('/api/analyze'),/连接中断/);
   } finally {globalThis.fetch=original;}
+});
+
+
+test('overall estimate stays below completion and does not regress during reconnect',()=>{
+ assert.equal(overallPercent({stage:'uploading',percent:100}),15);
+ assert.equal(overallPercent({stage:'transferring'}),30);
+ assert.equal(overallPercent({stage:'starting'},85),85);
+ assert.equal(overallPercent({stage:'downloading'}),96);
+ assert.equal(overallPercent({stage:'unknown'},100),99);
+ assert.equal(overallPercent({stage:'done'}),100);
 });
