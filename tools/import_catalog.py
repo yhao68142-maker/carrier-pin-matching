@@ -14,16 +14,19 @@ def extract(source):
                 break
         return cell.value,cell.coordinate
     outlines=[]
+    def model_key(value):
+        return re.sub(r'\s+','',str(value or '')).replace('（','(').replace('）',')').casefold()
     def pin_pair(raw):
         found=re.match(r'\s*(\d+(?:\.\d+)?)\s*[*×xX]\s*(\d+(?:\.\d+)?)',str(raw or ''))
         return tuple(found.groups()) if found else None
     cb=workbook['治具料盒信息统计（CB端）']
     for row in range(1,cb.max_row+1):
-        if cb.cell(row,4).value!='载条定位销尺寸': continue
+        if cb.cell(row,4).value not in ('载条定位销尺寸','载条穴位尺寸'): continue
         note,cell=merged_value(cb,row,6)
         found=re.search(r'载条外形尺寸[：:]\s*(\d+(?:\.\d+)?)\s*[*×xX]\s*(\d+(?:\.\d+)?)',str(note or ''))
         if found:
             outlines.append({'code':str(merged_value(cb,row,2)[0] or '').strip(),
+                             'modelKey':model_key(merged_value(cb,row,3)[0]),
                              'pins':pin_pair(cb.cell(row,5).value),
                              'length':found[1],'width':found[2],
                              'outerSheet':cb.title,'outerCell':cell,'outerRaw':found[0]})
@@ -36,20 +39,25 @@ def extract(source):
                     return sheet.cell(merged.min_row,merged.min_col).value
             return cell.value
         for row in range(1,sheet.max_row+1):
-            if sheet.cell(row,4).value != '载条定位销尺寸': continue
+            label=sheet.cell(row,4).value
+            if label not in ('载条定位销尺寸','载条穴位尺寸'): continue
             raw=str(sheet.cell(row,5).value or '')
             found=re.match(r'\s*(\d+(?:\.\d+)?)\s*[*×xX]\s*(\d+(?:\.\d+)?)',raw)
             if not found: continue
             record={'code':str(value(row,2) or '').strip(),'model':str(value(row,3) or ''),
-                'x':found[1],'y':found[2],'raw':raw,'sheet':sheet.title,'cell':f'E{row}'}
-            candidates=[o for o in outlines if record['code'] and o['code']==record['code'] and o['pins']==pin_pair(raw)]
+                'x':found[1] if label=='载条定位销尺寸' else None,
+                'y':found[2] if label=='载条定位销尺寸' else None,
+                'raw':raw,'sourceLabel':label,'sheet':sheet.title,'cell':f'E{row}'}
+            candidates=[o for o in outlines if model_key(record['model']) and o['modelKey']==model_key(record['model'])]
+            if not candidates:
+                candidates=[o for o in outlines if record['code'] and o['code']==record['code'] and o['pins']==pin_pair(raw)]
             if sheet.title==cb.title:
                 note,note_cell=merged_value(sheet,row,6)
                 outer=re.search(r'载条外形尺寸[：:]\s*(\d+(?:\.\d+)?)\s*[*×xX]\s*(\d+(?:\.\d+)?)',str(note or ''))
                 candidates=[{'length':outer[1],'width':outer[2],'outerSheet':sheet.title,
                              'outerCell':note_cell,'outerRaw':outer[0]}] if outer else []
             if len({(o['length'],o['width']) for o in candidates})==1:
-                record.update({k:v for k,v in candidates[0].items() if k not in ('code','pins')})
+                record.update({k:v for k,v in candidates[0].items() if k not in ('code','pins','modelKey')})
             else:
                 record.update(length=None,width=None,outerSheet=None,outerCell=None,outerRaw=None)
             records.append(record)

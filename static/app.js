@@ -1,4 +1,4 @@
-import {renderResults} from './results.mjs?v=four-dimensions-1';
+import {renderResults} from './results.mjs?v=four-dimensions-2';
 const $=id=>document.getElementById(id);let model=null,angle=.35,tilt=.65,zoom=1,drag=null,confirmed=false;
 import {api} from './api.mjs?v=import-recovery-1';
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

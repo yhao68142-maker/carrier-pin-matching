@@ -15,6 +15,7 @@ def exact_matches(records, x, y):
     results=[]
     tolerance=Decimal('0.01')
     for record in records:
+        if record.get('x') is None or record.get('y') is None: continue
         dx=x-Decimal(record['x'])
         dy=y-Decimal(record['y'])
         if abs(dx)<=tolerance and abs(dy)<=tolerance:

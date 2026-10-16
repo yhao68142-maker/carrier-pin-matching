@@ -1,9 +1,21 @@
 import unittest
+import json
+from pathlib import Path
 from engine import ranked_matches, ranked_four_dimensions
 from fastapi.testclient import TestClient
 from app import app
 
 class RankingTests(unittest.TestCase):
+    def test_merged_outer_standard_covers_all_seven_models(self):
+        records=json.loads((Path(__file__).parent/'data'/'catalog.json').read_text(encoding='utf-8'))
+        group=[r for r in records if r['sheet']=='治具料盒信息统计（CB端）' and r.get('outerCell')=='F51']
+        self.assertEqual(len(group),7)
+        self.assertTrue(all((r['length'],r['width'])==('180','92') for r in group))
+        cavity=next(r for r in group if r['cell']=='E60')
+        self.assertIsNone(cavity['x']);self.assertIsNone(cavity['y'])
+        rows=ranked_four_dimensions([cavity],'25.3','37.3','180','92')
+        self.assertFalse(rows[0]['qualified']);self.assertIsNone(rows[0]['similarity'])
+        self.assertTrue(rows[0]['passLength']);self.assertTrue(rows[0]['passWidth'])
     def test_ties_boundaries_and_failed_dimensions(self):
         records=[{'x':'136.9','y':'57','code':'same1'},
                  {'x':'136.9','y':'57','code':'same2'},
@@ -28,7 +40,7 @@ class RankingTests(unittest.TestCase):
             response=client.post('/api/rank',json={'x':'136.90000000000416','y':'57.00000000000002','length':'185','width':'92'})
             self.assertEqual(response.status_code,200)
             rows=response.json()
-            self.assertEqual(len(rows),65)
+            self.assertEqual(len(rows),66)
             self.assertEqual(sum(r['qualified'] for r in rows),22)
             self.assertEqual(sum(r['rank']==1 for r in rows),22)
             self.assertEqual(client.post('/api/rank',json={'x':'NaN','y':'57','length':'185','width':'92'}).status_code,400)

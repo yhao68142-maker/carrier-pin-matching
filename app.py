@@ -23,7 +23,7 @@ logger = logging.getLogger('uvicorn.error')
 
 @app.get('/healthz')
 def health():
-    return {'status':'ok','catalogRecords':len(records),'version':'four-dimensions-1'}
+    return {'status':'ok','catalogRecords':len(records),'version':'four-dimensions-2'}
 
 @app.get('/api/catalog')
 def catalog():
