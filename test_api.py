@@ -1,6 +1,7 @@
 import unittest
+from unittest.mock import patch
 from fastapi.testclient import TestClient
-from app import app
+from app import app, analysis_lock
 
 class ApiTests(unittest.TestCase):
     def setUp(self): self.client=TestClient(app)
@@ -19,5 +20,18 @@ class ApiTests(unittest.TestCase):
     def test_invalid_step(self):
         result=self.client.post('/api/analyze',files={'file':('bad.step',b'not STEP')})
         self.assertEqual(result.status_code,422)
+    def test_busy_analysis_keeps_health_available(self):
+        with analysis_lock:
+            result=self.client.post('/api/analyze',files={'file':('valid.step',b'test')})
+            self.assertEqual(result.status_code,503)
+            self.assertIn('正在解析',result.json()['detail'])
+            self.assertEqual(self.client.get('/healthz').status_code,200)
+    def test_rejected_upload_releases_lock(self):
+        with patch('app.MAX_UPLOAD',4):
+            result=self.client.post('/api/analyze',files={'file':('big.step',b'12345')})
+            self.assertEqual(result.status_code,413)
+        result=self.client.post('/api/analyze',files={'file':('empty.step',b'')})
+        self.assertEqual(result.status_code,400)
+        self.assertFalse(analysis_lock.locked())
 
 if __name__=='__main__':unittest.main()

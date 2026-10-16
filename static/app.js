@@ -1,5 +1,5 @@
 const $=id=>document.getElementById(id);let model=null,angle=.35,tilt=.65,zoom=1,drag=null,confirmed=false;
-async function api(url,options){const response=await fetch(url,options);const data=await response.json();if(!response.ok)throw Error(data.detail||'请求失败');return data}
+import {api} from './api.mjs?v=import-recovery-1';
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 api('/api/catalog').then(rows=>$('count').textContent=`内嵌尺寸库 · ${rows.length} 条记录`).catch(e=>$('count').textContent=e.message);
 function invalidate(){confirmed=false;$('x').value='';$('y').value='';$('result').textContent='请重新确认定位销与方向。';$('provenance').textContent='尚未确认 CAD 测量。';draw()}
