@@ -49,6 +49,39 @@ def ranked_matches(records, x, y):
         previous=key
     return results
 
+def ranked_four_dimensions(records,x,y,length,width):
+    exact_matches([],x,y)
+    exact_matches([],length,width)
+    measured={k:Decimal(str(v)) for k,v in zip(('x','y','length','width'),(x,y,length,width))}
+    if measured['length']<measured['width']:
+        raise ValueError('外形长应不小于宽，请核对长宽输入。')
+    results=[]
+    for record in records:
+        row={**record};errors=[];deltas=[];missing=[];passes=[]
+        for key,suffix in (('x','X'),('y','Y'),('length','Length'),('width','Width')):
+            value=record.get(key)
+            if value is None or str(value).strip()=='':
+                row['delta'+suffix]=None;row['pass'+suffix]=None;missing.append(key)
+                continue
+            target=Decimal(str(value));delta=measured[key]-target
+            passes.append(abs(delta)<=Decimal('0.01'))
+            row['delta'+suffix]=str(delta);row['pass'+suffix]=passes[-1]
+            scale=max(measured[key],target)
+            errors.append(abs(delta)/scale if scale else Decimal(0));deltas.append(delta)
+        row['complete']=not missing;row['qualified']=not missing and all(passes);row['missing']=missing
+        if missing:
+            row['similarity']=None;key=(2,Decimal(0),Decimal(0))
+        else:
+            loss=sum(errors)/4;score=(1-loss)*100
+            row['similarity']='100.00' if all(abs(d)<Decimal('1e-9') for d in deltas) else str(min(Decimal('99.99'),score.quantize(Decimal('0.01'))))
+            key=(0 if row['qualified'] else 1,loss,sum(d*d for d in deltas))
+        results.append((key,row))
+    results.sort(key=lambda item:item[0]);previous=None;rank=0;output=[]
+    for index,(key,row) in enumerate(results,1):
+        if key!=previous: rank=index
+        output.append({**row,'rank':rank if row['complete'] else None});previous=key
+    return output
+
 def measure(pins, a, b, swap=False):
     if a == b or not 0 <= a < len(pins) or not 0 <= b < len(pins):
         raise ValueError('请选择两个不同的定位销')

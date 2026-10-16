@@ -11,7 +11,7 @@ from fastapi import FastAPI, UploadFile, HTTPException
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
-from engine import exact_matches, ranked_matches
+from engine import exact_matches, ranked_four_dimensions
 
 ROOT = Path(__file__).parent
 app = FastAPI(title='载条定位销尺寸匹配')
@@ -23,7 +23,7 @@ logger = logging.getLogger('uvicorn.error')
 
 @app.get('/healthz')
 def health():
-    return {'status':'ok','catalogRecords':len(records),'version':'ranked-matching-1'}
+    return {'status':'ok','catalogRecords':len(records),'version':'four-dimensions-1'}
 
 @app.get('/api/catalog')
 def catalog():
@@ -83,9 +83,13 @@ def match(query: Query):
 @app.get('/')
 def home(): return FileResponse(ROOT/'static'/'index.html')
 
+class FourQuery(Query):
+    length: str
+    width: str
+
 @app.post('/api/rank')
-def rank(query: Query):
-    try: return ranked_matches(records,query.x,query.y)
+def rank(query: FourQuery):
+    try: return ranked_four_dimensions(records,query.x,query.y,query.length,query.width)
     except ValueError as exc: raise HTTPException(400,str(exc)) from exc
 
 app.mount('/static', StaticFiles(directory=ROOT/'static'),name='static')

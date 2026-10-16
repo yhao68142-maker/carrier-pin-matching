@@ -32,6 +32,8 @@ class GeometryTests(unittest.TestCase):
             # Geometry test allowance is not a catalog matching tolerance.
             self.assertAlmostEqual(float(dims['x']),136.9,places=8)
             self.assertAlmostEqual(float(dims['y']),57,places=8)
+            self.assertAlmostEqual(result['outer']['length'],180,places=7)
+            self.assertAlmostEqual(result['outer']['width'],92,places=7)
             self.assertTrue(result['triangles'])
             with self.assertRaises(ValueError):measure(result['pins'],0,0)
 

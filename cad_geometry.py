@@ -4,7 +4,7 @@ import math
 from OCP.STEPControl import STEPControl_Reader
 from OCP.IFSelect import IFSelect_RetDone
 from OCP.Interface import Interface_Static
-from OCP.TopAbs import TopAbs_FACE, TopAbs_EDGE, TopAbs_REVERSED
+from OCP.TopAbs import TopAbs_FACE, TopAbs_EDGE, TopAbs_SOLID, TopAbs_REVERSED
 from OCP.TopExp import TopExp_Explorer
 from OCP.TopoDS import TopoDS
 from OCP.BRepAdaptor import BRepAdaptor_Surface, BRepAdaptor_Curve
@@ -15,7 +15,10 @@ from OCP.BRepTools import BRepTools
 from OCP.BRepMesh import BRepMesh_IncrementalMesh
 from OCP.BRep import BRep_Tool
 from OCP.TopLoc import TopLoc_Location
-from OCP.gp import gp_Pnt, gp_Vec
+from OCP.gp import gp_Pnt, gp_Vec, gp_Trsf
+from OCP.BRepBuilderAPI import BRepBuilderAPI_Transform
+from OCP.BRepBndLib import BRepBndLib
+from OCP.Bnd import Bnd_Box
 
 log = logging.getLogger('uvicorn.error')
 def xyz(p): return (p.X(), p.Y(), p.Z())
@@ -64,6 +67,23 @@ def analyze(path):
         if length>longest and length>0: longest=length;u=norm(direction)
     if u is None: raise ValueError('无法从载条平面确定横向直边')
     v=norm(cross(n,u));candidates=[]
+    carrier=None
+    for solid in parts(shape,TopAbs_SOLID,TopoDS.Solid_s):
+        if any(face.IsSame(base) for face in parts(solid,TopAbs_FACE,TopoDS.Face_s)):
+            carrier=solid
+            break
+    outer=None
+    if carrier is not None:
+        transform=gp_Trsf()
+        transform.SetValues(*u,-dot(u,origin),*v,-dot(v,origin),*n,-dot(n,origin))
+        aligned=BRepBuilderAPI_Transform(carrier,transform,True).Shape()
+        bounds=Bnd_Box()
+        # Analytic bounds in the carrier plane; never use display tessellation.
+        BRepBndLib.AddOptimal_s(aligned,bounds,False,False)
+        x0,y0,z0,x1,y1,z1=bounds.Get()
+        length,width=sorted((x1-x0,y1-y0),reverse=True)
+        outer={'length':length,'width':width,
+               'method':'最大基准面所属实体在载条平面的几何包络，长取较大边、宽取较小边；不含独立装配零件。'}
     for face in faces:
         surface=BRepAdaptor_Surface(face)
         if surface.GetType()!=GeomAbs_Cylinder: continue
@@ -93,6 +113,6 @@ def analyze(path):
             triangle=mesh.Triangle(i)
             order=(1,3,2) if reverse else (1,2,3)
             triangles.append(tuple(triangle.Value(j)+offset-1 for j in order))
-    return {'pins':candidates,'vertices':vertices,'triangles':triangles,
+    return {'pins':candidates,'vertices':vertices,'triangles':triangles,'outer':outer,
             'basis':{'origin':origin,'x':u,'y':v,'normal':n},
             'basisNote':'自动基准：最大平面及其最长直边。请核对横向，必要时交换 X/Y。','unit':'mm'}

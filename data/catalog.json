@@ -6,7 +6,12 @@
     "y": "57",
     "raw": "136.9*57",
     "sheet": "治具料盒信息统计",
-    "cell": "E3"
+    "cell": "E3",
+    "length": "185",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F3",
+    "outerRaw": "载条外形尺寸：\n185*92"
   },
   {
     "code": "500522-5",
@@ -15,16 +20,26 @@
     "y": "57",
     "raw": "136.9*57",
     "sheet": "治具料盒信息统计",
-    "cell": "E5"
+    "cell": "E5",
+    "length": "185",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F3",
+    "outerRaw": "载条外形尺寸：\n185*92"
   },
   {
-    "code": "500597-1 ",
+    "code": "500597-1",
     "model": "8x200G OSFP224 2xGR4",
     "x": "136.9",
     "y": "57",
     "raw": "136.9*57",
     "sheet": "治具料盒信息统计",
-    "cell": "E7"
+    "cell": "E7",
+    "length": "185",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F3",
+    "outerRaw": "载条外形尺寸：\n185*92"
   },
   {
     "code": "500522-4",
@@ -33,7 +48,12 @@
     "y": "57",
     "raw": "136.9*57",
     "sheet": "治具料盒信息统计",
-    "cell": "E9"
+    "cell": "E9",
+    "length": "185",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F3",
+    "outerRaw": "载条外形尺寸：\n185*92"
   },
   {
     "code": "500522-4",
@@ -42,7 +62,12 @@
     "y": "57",
     "raw": "136.9*57",
     "sheet": "治具料盒信息统计",
-    "cell": "E11"
+    "cell": "E11",
+    "length": "185",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F3",
+    "outerRaw": "载条外形尺寸：\n185*92"
   },
   {
     "code": "500525-1",
@@ -51,7 +76,12 @@
     "y": "57",
     "raw": "136.9*57",
     "sheet": "治具料盒信息统计",
-    "cell": "E13"
+    "cell": "E13",
+    "length": "185",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F3",
+    "outerRaw": "载条外形尺寸：\n185*92"
   },
   {
     "code": "500522-1",
@@ -60,7 +90,12 @@
     "y": "57",
     "raw": "136.9*57",
     "sheet": "治具料盒信息统计",
-    "cell": "E15"
+    "cell": "E15",
+    "length": "185",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F3",
+    "outerRaw": "载条外形尺寸：\n185*92"
   },
   {
     "code": "500522-1",
@@ -69,7 +104,12 @@
     "y": "57",
     "raw": "136.9*57",
     "sheet": "治具料盒信息统计",
-    "cell": "E17"
+    "cell": "E17",
+    "length": "185",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F3",
+    "outerRaw": "载条外形尺寸：\n185*92"
   },
   {
     "code": "500523-1",
@@ -78,7 +118,12 @@
     "y": "68",
     "raw": "117.5*68",
     "sheet": "治具料盒信息统计",
-    "cell": "E20"
+    "cell": "E20",
+    "length": null,
+    "width": null,
+    "outerSheet": null,
+    "outerCell": null,
+    "outerRaw": null
   },
   {
     "code": "500523-1",
@@ -87,7 +132,12 @@
     "y": "69",
     "raw": "117.5*69",
     "sheet": "治具料盒信息统计",
-    "cell": "E22"
+    "cell": "E22",
+    "length": null,
+    "width": null,
+    "outerSheet": null,
+    "outerCell": null,
+    "outerRaw": null
   },
   {
     "code": "500629-1",
@@ -96,7 +146,12 @@
     "y": "58",
     "raw": "117.5*58",
     "sheet": "治具料盒信息统计",
-    "cell": "E24"
+    "cell": "E24",
+    "length": null,
+    "width": null,
+    "outerSheet": null,
+    "outerCell": null,
+    "outerRaw": null
   },
   {
     "code": "500613-2",
@@ -105,7 +160,12 @@
     "y": "57",
     "raw": "136.9*57",
     "sheet": "治具料盒信息统计",
-    "cell": "E26"
+    "cell": "E26",
+    "length": "185",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F3",
+    "outerRaw": "载条外形尺寸：\n185*92"
   },
   {
     "code": "500598-1",
@@ -114,7 +174,12 @@
     "y": "7",
     "raw": "136.9*7",
     "sheet": "治具料盒信息统计",
-    "cell": "E28"
+    "cell": "E28",
+    "length": "180",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F35",
+    "outerRaw": "载条外形尺寸：\n180*92"
   },
   {
     "code": "500612-1",
@@ -123,7 +188,12 @@
     "y": "57",
     "raw": "136.9*57",
     "sheet": "治具料盒信息统计",
-    "cell": "E30"
+    "cell": "E30",
+    "length": "185",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F3",
+    "outerRaw": "载条外形尺寸：\n185*92"
   },
   {
     "code": "500606-1",
@@ -132,7 +202,12 @@
     "y": "57",
     "raw": "136.9*57",
     "sheet": "治具料盒信息统计",
-    "cell": "E32"
+    "cell": "E32",
+    "length": "185",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F3",
+    "outerRaw": "载条外形尺寸：\n185*92"
   },
   {
     "code": "500222-3",
@@ -141,7 +216,12 @@
     "y": "46",
     "raw": "136.9*46\n（COC ：左上右下）（热沉：左下右上）",
     "sheet": "治具料盒信息统计",
-    "cell": "E34"
+    "cell": "E34",
+    "length": "180",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F51",
+    "outerRaw": "载条外形尺寸：\n180*92"
   },
   {
     "code": "500600-1",
@@ -150,7 +230,12 @@
     "y": "28",
     "raw": "117.5*28",
     "sheet": "治具料盒信息统计",
-    "cell": "E36"
+    "cell": "E36",
+    "length": "185",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F25",
+    "outerRaw": "载条外形尺寸：\n185*92"
   },
   {
     "code": "500600-1",
@@ -159,7 +244,12 @@
     "y": "28",
     "raw": "117.5*28",
     "sheet": "治具料盒信息统计",
-    "cell": "E38"
+    "cell": "E38",
+    "length": "185",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F25",
+    "outerRaw": "载条外形尺寸：\n185*92"
   },
   {
     "code": "",
@@ -168,7 +258,12 @@
     "y": "2",
     "raw": "158.52*2\n(COC ：左上右下)(热沉 ：左下右上)",
     "sheet": "治具料盒信息统计",
-    "cell": "E42"
+    "cell": "E42",
+    "length": null,
+    "width": null,
+    "outerSheet": null,
+    "outerCell": null,
+    "outerRaw": null
   },
   {
     "code": "",
@@ -177,7 +272,12 @@
     "y": "38",
     "raw": "158.52*38",
     "sheet": "治具料盒信息统计",
-    "cell": "E44"
+    "cell": "E44",
+    "length": null,
+    "width": null,
+    "outerSheet": null,
+    "outerCell": null,
+    "outerRaw": null
   },
   {
     "code": "500607",
@@ -186,7 +286,12 @@
     "y": "25",
     "raw": "161*25",
     "sheet": "治具料盒信息统计",
-    "cell": "E46"
+    "cell": "E46",
+    "length": "180",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F51",
+    "outerRaw": "载条外形尺寸：\n180*92"
   },
   {
     "code": "",
@@ -195,7 +300,12 @@
     "y": "25",
     "raw": "136.9*25",
     "sheet": "治具料盒信息统计",
-    "cell": "E48"
+    "cell": "E48",
+    "length": null,
+    "width": null,
+    "outerSheet": null,
+    "outerCell": null,
+    "outerRaw": null
   },
   {
     "code": "",
@@ -204,7 +314,12 @@
     "y": "38",
     "raw": "158.52*38\n（COC ：左上右下）（热沉：左下右上）",
     "sheet": "治具料盒信息统计",
-    "cell": "E50"
+    "cell": "E50",
+    "length": null,
+    "width": null,
+    "outerSheet": null,
+    "outerCell": null,
+    "outerRaw": null
   },
   {
     "code": "500602-1",
@@ -213,7 +328,12 @@
     "y": "7",
     "raw": "136.9*7",
     "sheet": "治具料盒信息统计",
-    "cell": "E56"
+    "cell": "E56",
+    "length": null,
+    "width": null,
+    "outerSheet": null,
+    "outerCell": null,
+    "outerRaw": null
   },
   {
     "code": "500602-1",
@@ -222,7 +342,12 @@
     "y": "7",
     "raw": "136.9*7",
     "sheet": "治具料盒信息统计",
-    "cell": "E58"
+    "cell": "E58",
+    "length": null,
+    "width": null,
+    "outerSheet": null,
+    "outerCell": null,
+    "outerRaw": null
   },
   {
     "code": "500602-1",
@@ -231,7 +356,12 @@
     "y": "7",
     "raw": "136.9*7",
     "sheet": "治具料盒信息统计",
-    "cell": "E60"
+    "cell": "E60",
+    "length": null,
+    "width": null,
+    "outerSheet": null,
+    "outerCell": null,
+    "outerRaw": null
   },
   {
     "code": "500602-1",
@@ -240,7 +370,12 @@
     "y": "7",
     "raw": "136.9*7",
     "sheet": "治具料盒信息统计",
-    "cell": "E62"
+    "cell": "E62",
+    "length": null,
+    "width": null,
+    "outerSheet": null,
+    "outerCell": null,
+    "outerRaw": null
   },
   {
     "code": "500604-6",
@@ -249,7 +384,12 @@
     "y": "28",
     "raw": "120.8*28",
     "sheet": "治具料盒信息统计",
-    "cell": "E64"
+    "cell": "E64",
+    "length": "180",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F45",
+    "outerRaw": "载条外形尺寸：\n180*92"
   },
   {
     "code": "500608",
@@ -258,7 +398,12 @@
     "y": "28",
     "raw": "120.8*28",
     "sheet": "治具料盒信息统计",
-    "cell": "E66"
+    "cell": "E66",
+    "length": "180",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F45",
+    "outerRaw": "载条外形尺寸：\n180*92"
   },
   {
     "code": "500604",
@@ -267,7 +412,12 @@
     "y": "28",
     "raw": "120.8*28",
     "sheet": "治具料盒信息统计",
-    "cell": "E68"
+    "cell": "E68",
+    "length": "180",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F45",
+    "outerRaw": "载条外形尺寸：\n180*92"
   },
   {
     "code": "",
@@ -276,7 +426,12 @@
     "y": "24",
     "raw": "117.5*24\n(左下右上)",
     "sheet": "治具料盒信息统计",
-    "cell": "E70"
+    "cell": "E70",
+    "length": null,
+    "width": null,
+    "outerSheet": null,
+    "outerCell": null,
+    "outerRaw": null
   },
   {
     "code": "",
@@ -285,7 +440,12 @@
     "y": "24",
     "raw": "117.5*24",
     "sheet": "治具料盒信息统计",
-    "cell": "E74"
+    "cell": "E74",
+    "length": null,
+    "width": null,
+    "outerSheet": null,
+    "outerCell": null,
+    "outerRaw": null
   },
   {
     "code": "500603-2",
@@ -294,7 +454,12 @@
     "y": "57",
     "raw": "136.9*57",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E4"
+    "cell": "E4",
+    "length": "185",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F3",
+    "outerRaw": "载条外形尺寸：\n185*92"
   },
   {
     "code": "500522-5",
@@ -303,16 +468,26 @@
     "y": "57",
     "raw": "136.9*57",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E6"
+    "cell": "E6",
+    "length": "185",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F3",
+    "outerRaw": "载条外形尺寸：\n185*92"
   },
   {
-    "code": "500597-1 ",
+    "code": "500597-1",
     "model": "8x200G OSFP224 2xGR4",
     "x": "136.9",
     "y": "57",
     "raw": "136.9*57",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E8"
+    "cell": "E8",
+    "length": "185",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F3",
+    "outerRaw": "载条外形尺寸：\n185*92"
   },
   {
     "code": "500522-4",
@@ -321,7 +496,12 @@
     "y": "57",
     "raw": "136.9*57",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E10"
+    "cell": "E10",
+    "length": "185",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F3",
+    "outerRaw": "载条外形尺寸：\n185*92"
   },
   {
     "code": "500522-4",
@@ -330,7 +510,12 @@
     "y": "57",
     "raw": "136.9*57",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E12"
+    "cell": "E12",
+    "length": "185",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F3",
+    "outerRaw": "载条外形尺寸：\n185*92"
   },
   {
     "code": "500525-1",
@@ -339,7 +524,12 @@
     "y": "57",
     "raw": "136.9*57",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E14"
+    "cell": "E14",
+    "length": "185",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F3",
+    "outerRaw": "载条外形尺寸：\n185*92"
   },
   {
     "code": "500522-1",
@@ -348,7 +538,12 @@
     "y": "57",
     "raw": "136.9*57",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E16"
+    "cell": "E16",
+    "length": "185",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F3",
+    "outerRaw": "载条外形尺寸：\n185*92"
   },
   {
     "code": "500522-1",
@@ -357,7 +552,12 @@
     "y": "57",
     "raw": "136.9*57",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E18"
+    "cell": "E18",
+    "length": "185",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F3",
+    "outerRaw": "载条外形尺寸：\n185*92"
   },
   {
     "code": "500613-2",
@@ -366,7 +566,12 @@
     "y": "57",
     "raw": "136.9*57",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E20"
+    "cell": "E20",
+    "length": "185",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F3",
+    "outerRaw": "载条外形尺寸：\n185*92"
   },
   {
     "code": "500612-1",
@@ -375,7 +580,12 @@
     "y": "57",
     "raw": "136.9*57",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E22"
+    "cell": "E22",
+    "length": "185",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F3",
+    "outerRaw": "载条外形尺寸：\n185*92"
   },
   {
     "code": "500606-1",
@@ -384,7 +594,12 @@
     "y": "57",
     "raw": "136.9*57",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E24"
+    "cell": "E24",
+    "length": "185",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F3",
+    "outerRaw": "载条外形尺寸：\n185*92"
   },
   {
     "code": "500600-1",
@@ -393,7 +608,12 @@
     "y": "28",
     "raw": "117.5*28",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E26"
+    "cell": "E26",
+    "length": "185",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F25",
+    "outerRaw": "载条外形尺寸：\n185*92"
   },
   {
     "code": "500600-1",
@@ -402,7 +622,12 @@
     "y": "28",
     "raw": "117.5*28",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E28"
+    "cell": "E28",
+    "length": "185",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F25",
+    "outerRaw": "载条外形尺寸：\n185*92"
   },
   {
     "code": "500600-1",
@@ -411,7 +636,12 @@
     "y": "28",
     "raw": "117.5*28",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E30"
+    "cell": "E30",
+    "length": "185",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F25",
+    "outerRaw": "载条外形尺寸：\n185*92"
   },
   {
     "code": "",
@@ -420,7 +650,12 @@
     "y": "38",
     "raw": "158.52*38",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E32"
+    "cell": "E32",
+    "length": "185",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F31",
+    "outerRaw": "载条外形尺寸：\n185*92"
   },
   {
     "code": "",
@@ -429,7 +664,12 @@
     "y": "38",
     "raw": "158.52*38",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E34"
+    "cell": "E34",
+    "length": "185",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F31",
+    "outerRaw": "载条外形尺寸：\n185*92"
   },
   {
     "code": "500602-1\n（历史名称：800G OSFP PSM4）",
@@ -438,7 +678,12 @@
     "y": "7",
     "raw": "136.9*7",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E36"
+    "cell": "E36",
+    "length": "180",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F35",
+    "outerRaw": "载条外形尺寸：\n180*92"
   },
   {
     "code": "500602-1\n（历史名称：800G OSFP PSM4）",
@@ -447,7 +692,12 @@
     "y": "7",
     "raw": "136.9*7",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E38"
+    "cell": "E38",
+    "length": "180",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F35",
+    "outerRaw": "载条外形尺寸：\n180*92"
   },
   {
     "code": "500602-1\n（历史名称：800G OSFP PSM4）",
@@ -456,7 +706,12 @@
     "y": "7",
     "raw": "136.9*7",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E40"
+    "cell": "E40",
+    "length": "180",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F35",
+    "outerRaw": "载条外形尺寸：\n180*92"
   },
   {
     "code": "500602-1\n（历史名称：800G OSFP PSM4）",
@@ -465,7 +720,12 @@
     "y": "7",
     "raw": "136.9*7",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E42"
+    "cell": "E42",
+    "length": "180",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F35",
+    "outerRaw": "载条外形尺寸：\n180*92"
   },
   {
     "code": "500598-1",
@@ -474,7 +734,12 @@
     "y": "7",
     "raw": "136.9*7",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E44"
+    "cell": "E44",
+    "length": "180",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F35",
+    "outerRaw": "载条外形尺寸：\n180*92"
   },
   {
     "code": "500604-6",
@@ -483,7 +748,12 @@
     "y": "28",
     "raw": "120.8*28",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E46"
+    "cell": "E46",
+    "length": "180",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F45",
+    "outerRaw": "载条外形尺寸：\n180*92"
   },
   {
     "code": "500608",
@@ -492,7 +762,12 @@
     "y": "28",
     "raw": "120.8*28",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E48"
+    "cell": "E48",
+    "length": "180",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F45",
+    "outerRaw": "载条外形尺寸：\n180*92"
   },
   {
     "code": "500604",
@@ -501,7 +776,12 @@
     "y": "28",
     "raw": "120.8*28",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E50"
+    "cell": "E50",
+    "length": "180",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F45",
+    "outerRaw": "载条外形尺寸：\n180*92"
   },
   {
     "code": "500222-3",
@@ -510,7 +790,12 @@
     "y": "46",
     "raw": "136.9*46",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E52"
+    "cell": "E52",
+    "length": "180",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F51",
+    "outerRaw": "载条外形尺寸：\n180*92"
   },
   {
     "code": "",
@@ -519,7 +804,12 @@
     "y": "2",
     "raw": "158.52*2",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E54"
+    "cell": "E54",
+    "length": "180",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F51",
+    "outerRaw": "载条外形尺寸：\n180*92"
   },
   {
     "code": "500607",
@@ -528,7 +818,12 @@
     "y": "25",
     "raw": "161*25",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E56"
+    "cell": "E56",
+    "length": "180",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F51",
+    "outerRaw": "载条外形尺寸：\n180*92"
   },
   {
     "code": "",
@@ -537,7 +832,12 @@
     "y": "25",
     "raw": "136.9*25",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E58"
+    "cell": "E58",
+    "length": "180",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F51",
+    "outerRaw": "载条外形尺寸：\n180*92"
   },
   {
     "code": "",
@@ -546,7 +846,12 @@
     "y": "24",
     "raw": "117.5*24",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E62"
+    "cell": "E62",
+    "length": "180",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F51",
+    "outerRaw": "载条外形尺寸：\n180*92"
   },
   {
     "code": "",
@@ -555,7 +860,12 @@
     "y": "24",
     "raw": "117.5*24",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E64"
+    "cell": "E64",
+    "length": "180",
+    "width": "92",
+    "outerSheet": "治具料盒信息统计（CB端）",
+    "outerCell": "F51",
+    "outerRaw": "载条外形尺寸：\n180*92"
   },
   {
     "code": "500523-1",
@@ -564,7 +874,12 @@
     "y": "68",
     "raw": "117.5*68",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E66"
+    "cell": "E66",
+    "length": null,
+    "width": null,
+    "outerSheet": null,
+    "outerCell": null,
+    "outerRaw": null
   },
   {
     "code": "500523-1",
@@ -573,7 +888,12 @@
     "y": "69",
     "raw": "117.5*69",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E68"
+    "cell": "E68",
+    "length": null,
+    "width": null,
+    "outerSheet": null,
+    "outerCell": null,
+    "outerRaw": null
   },
   {
     "code": "500629-1",
@@ -582,6 +902,11 @@
     "y": "58",
     "raw": "117.5*58",
     "sheet": "治具料盒信息统计（CB端）",
-    "cell": "E70"
+    "cell": "E70",
+    "length": null,
+    "width": null,
+    "outerSheet": null,
+    "outerCell": null,
+    "outerRaw": null
   }
 ]
