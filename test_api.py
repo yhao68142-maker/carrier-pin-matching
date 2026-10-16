@@ -1,5 +1,6 @@
 import unittest
 from unittest.mock import patch
+import subprocess
 from fastapi.testclient import TestClient
 from app import app, analysis_lock
 
@@ -33,5 +34,16 @@ class ApiTests(unittest.TestCase):
         result=self.client.post('/api/analyze',files={'file':('empty.step',b'')})
         self.assertEqual(result.status_code,400)
         self.assertFalse(analysis_lock.locked())
+    def test_worker_timeout_or_crash_returns_readable_error(self):
+        with patch('app.subprocess.run',side_effect=subprocess.TimeoutExpired('cad',120)):
+            result=self.client.post('/api/analyze',files={'file':('model.step',b'test')})
+            self.assertEqual(result.status_code,504)
+            self.assertIn('两分钟',result.json()['detail'])
+        with patch('app.subprocess.run',return_value=subprocess.CompletedProcess('cad',-9)):
+            result=self.client.post('/api/analyze',files={'file':('model.step',b'test')})
+            self.assertEqual(result.status_code,422)
+            self.assertIn('进程未能完成',result.json()['detail'])
+        self.assertFalse(analysis_lock.locked())
+        self.assertEqual(self.client.get('/healthz').status_code,200)
 
 if __name__=='__main__':unittest.main()

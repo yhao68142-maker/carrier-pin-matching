@@ -1,7 +1,9 @@
 """Analytic STEP geometry. Display tessellation is never used for measurements."""
 from decimal import Decimal, InvalidOperation
 import math
-from cad_geometry import analyze
+def analyze(path):
+    from cad_geometry import analyze as analyze_geometry
+    return analyze_geometry(path)
 
 def exact_matches(records, x, y):
     try:

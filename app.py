@@ -5,11 +5,13 @@ import logging
 import threading
 import time
 import uuid
+import subprocess
+import sys
 from fastapi import FastAPI, UploadFile, HTTPException
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
-from engine import analyze, exact_matches, measure
+from engine import exact_matches
 
 ROOT = Path(__file__).parent
 app = FastAPI(title='载条定位销尺寸匹配')
@@ -21,7 +23,7 @@ logger = logging.getLogger('uvicorn.error')
 
 @app.get('/healthz')
 def health():
-    return {'status':'ok','catalogRecords':len(records),'version':'import-recovery-1'}
+    return {'status':'ok','catalogRecords':len(records),'version':'import-recovery-2'}
 
 @app.get('/api/catalog')
 def catalog():
@@ -48,7 +50,16 @@ def upload(file: UploadFile):
             if not total:
                 raise HTTPException(400,'文件为空，请重新导出 STEP 文件。')
             logger.info('CAD %s start bytes=%s', request_id, total)
-            result = analyze(path)
+            result_path = Path(directory)/'result.json'
+            try:
+                process = subprocess.run([sys.executable,str(ROOT/'cad_worker.py'),str(path),str(result_path)],
+                                         timeout=120,check=False)
+            except subprocess.TimeoutExpired as exc:
+                raise HTTPException(504,'模型解析超过两分钟，已停止。请导出单个载条后重试。') from exc
+            if process.returncode != 0:
+                logger.error('CAD %s worker exited code=%s',request_id,process.returncode)
+                raise HTTPException(422,'模型解析进程未能完成，可能是模型格式或服务器资源不足。请导出单个载条后重试。错误编号：'+request_id)
+            result = json.loads(result_path.read_text(encoding='utf-8'))
             logger.info('CAD %s complete seconds=%.1f pins=%s triangles=%s', request_id,
                         time.monotonic()-started, len(result['pins']),len(result['triangles']))
             return JSONResponse(result)
