@@ -1,6 +1,13 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {api} from './static/api.mjs';
+import {renderResults} from './static/results.mjs';
+
+test('ranking renders separate dimension status and escapes catalog text',()=>{
+ const html=renderResults([{rank:1,code:'<script>',model:'test',x:'10',y:'20',deltaX:'0',deltaY:'1',passX:true,passY:false,qualified:false,similarity:'97.62',raw:'10*20',sheet:'sheet',cell:'E3'}]);
+ assert.match(html,/97.62%/);assert.match(html,/dimension-pass/);assert.match(html,/dimension-fail/);
+ assert.match(html,/仍不符合公差/);assert.match(html,/&lt;script&gt;/);assert.doesNotMatch(html,/<script>/);
+});
 
 test('valid response, empty body, truncated body, and proxy errors',async()=>{
   const original=globalThis.fetch;
