@@ -20,10 +20,87 @@ records = json.loads(DATA.read_text(encoding='utf-8')) if DATA.exists() else []
 analysis_lock = threading.Lock()
 MAX_UPLOAD = 50*1024*1024
 logger = logging.getLogger('uvicorn.error')
+jobs={}
+jobs_lock=threading.Lock()
+JOB_TIMEOUT=300
+
+def expire_job(job_id):
+    with jobs_lock:
+        job=jobs.pop(job_id,None)
+    if job: job['temporary'].cleanup()
+
+def process_job(job_id):
+    job=jobs[job_id]
+    try:
+        process=subprocess.run([sys.executable,str(ROOT/'cad_worker.py'),str(job['path']/'model.step'),
+                                str(job['path']/'result.json'),str(job['path']/'progress.json')],
+                               timeout=JOB_TIMEOUT,check=False)
+        if process.returncode!=0:
+            raise RuntimeError('CAD 解析进程未完成，请检查模型或稍后重试。')
+        job['state']='done'
+    except subprocess.TimeoutExpired:
+        job['error']='解析已超过五分钟，任务已停止。请简化源 STEP 或联系维护人员。'
+        job['state']='error'
+    except Exception as exc:
+        logger.exception('CAD background job %s failed',job_id)
+        job['error']=str(exc);job['state']='error'
+    finally:
+        job['finished']=time.monotonic()
+        (job['path']/'model.step').unlink(missing_ok=True)
+        analysis_lock.release()
+        timer=threading.Timer(600,expire_job,args=(job_id,));timer.daemon=True;timer.start()
+
+@app.post('/api/jobs',status_code=202)
+def create_job(file: UploadFile):
+    if Path(file.filename or '').suffix.lower() not in ('.step','.stp'):
+        raise HTTPException(400,'请上传 STEP/STP 文件。')
+    if not analysis_lock.acquire(blocking=False):
+        raise HTTPException(503,'服务器正在解析另一个模型，请稍后重试。')
+    temporary=None
+    try:
+        with jobs_lock:
+            completed=[key for key,value in jobs.items() if value['state']!='running']
+        for key in completed[:-2]: expire_job(key)
+        temporary=tempfile.TemporaryDirectory();path=Path(temporary.name);size=0
+        with (path/'model.step').open('wb') as output:
+            while chunk:=file.file.read(1024*1024):
+                size+=len(chunk)
+                if size>MAX_UPLOAD: raise HTTPException(413,'文件超过 50 MB')
+                output.write(chunk)
+        if not size: raise HTTPException(400,'文件为空，请重新导出 STEP 文件。')
+        job_id=uuid.uuid4().hex
+        with jobs_lock:
+            jobs[job_id]={'state':'running','path':path,'temporary':temporary,'started':time.monotonic()}
+        threading.Thread(target=process_job,args=(job_id,),daemon=True).start()
+        return {'id':job_id}
+    except Exception:
+        if temporary: temporary.cleanup()
+        analysis_lock.release()
+        raise
+
+def find_job(job_id):
+    with jobs_lock: job=jobs.get(job_id)
+    if job is None: raise HTTPException(404,'任务已过期或服务已重启，请重新选择文件。')
+    return job
+
+@app.get('/api/jobs/{job_id}')
+def job_status(job_id: str):
+    job=find_job(job_id);stage='starting'
+    try: stage=json.loads((job['path']/'progress.json').read_text(encoding='utf-8'))['stage']
+    except (FileNotFoundError,ValueError,KeyError): pass
+    return {'state':job['state'],'stage':stage,'elapsed':round(job.get('finished',time.monotonic())-job['started']),
+            'error':job.get('error')}
+
+@app.get('/api/jobs/{job_id}/result')
+def job_result(job_id: str):
+    job=find_job(job_id)
+    if job['state']=='error': raise HTTPException(422,job['error'])
+    if job['state']!='done': raise HTTPException(409,'模型仍在解析，请等待完成。')
+    return FileResponse(job['path']/'result.json',media_type='application/json')
 
 @app.get('/healthz')
 def health():
-    return {'status':'ok','catalogRecords':len(records),'version':'four-dimensions-2'}
+    return {'status':'ok','catalogRecords':len(records),'version':'staged-import-1'}
 
 @app.get('/api/catalog')
 def catalog():
