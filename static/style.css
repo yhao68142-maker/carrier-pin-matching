@@ -7,3 +7,5 @@
 #importProgress{padding:14px;background:#eef6f0;border-radius:8px;margin:12px 0;font-size:12px}#importProgress progress{display:block;width:100%;height:15px;accent-color:#226748;margin:12px 0}#importProgress p{line-height:1.6;font-size:11px;color:#587462}#importElapsed{color:#587462}
 
 .mode-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.mode-actions button{font-size:12px}button[hidden]{display:none}
+
+.drop.drag-over{background:#dcefe4;border:2px solid #23674d;box-shadow:0 0 0 4px #23674d20}.drop #selectedName{display:block;overflow-wrap:anywhere;margin-top:8px}

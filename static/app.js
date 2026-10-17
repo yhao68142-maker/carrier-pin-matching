@@ -6,7 +6,7 @@ import {api} from './api.mjs?v=import-recovery-1';
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 api('/api/catalog').then(rows=>$('count').textContent=`内嵌尺寸库 · ${rows.length} 条记录`).catch(e=>$('count').textContent=e.message);
 function invalidate(){confirmed=false;$('x').value='';$('y').value='';$('length').value='';$('width').value='';$('result').textContent='请重新确认定位销与方向。';$('provenance').textContent='尚未确认 CAD 测量。';draw()}
-let activeMode='local',localAbort=null;
+let activeMode='local',localAbort=null,selectedFile=null;
 let importStarted=0,importTimer=null,importState={},importPercent=0;
 function showProgress(state){
  importState=state;importPercent=overallPercent(state,importPercent);$('importProgress').hidden=false;
@@ -17,8 +17,34 @@ function showProgress(state){
  $('importSteps').textContent=`${stageStep(state.stage)} / 5：${activeMode==='local'?'本机读取':'上传'} → 读取实体 → 测量 → 简化预览 → 完成`;
  $('importNote').textContent=state.stage==='done'?'完成。请核对轴心、方向与长宽。':(activeMode==='local'?'本机计算，文件未上传。整体百分比按阶段估算，阶段不变时会停留；结果返回后才到 100%。':'整体百分比按阶段估算；上传比例来自实际发送字节。结果返回后才到 100%。');
 }
-async function loadFile(mode='local'){const file=$('file').files[0];if(!file)return;activeMode=mode;localAbort=new AbortController();$('cloud').disabled=true;$('cancelLocal').hidden=mode!=='local';model=null;invalidate();$('controls').hidden=true;$('status').textContent='正在解析 STEP 实体及圆柱轴线…';$('file').disabled=true;importPercent=0;importState={stage:'uploading',percent:0};importStarted=Date.now();importTimer=setInterval(()=>showProgress(importState),1000);try{model=await (mode==='local'?importLocal(file,showProgress,{signal:localAbort.signal}):importModel(file,showProgress));$('previewNote').textContent=model.previewNote||'';$('basisNote').textContent=model.basisNote+(model.outer?` 外形：长 ${model.outer.length.toFixed(3)} × 宽 ${model.outer.width.toFixed(3)} mm。${model.outer.method}`:' 未识别到载条实体，外形长宽需手动核对。');for(const key of ['pinA','pinB'])$(key).innerHTML=model.pins.map(p=>`<option value="${p.id}">候选 ${p.id+1} · Ø ${p.diameter.toPrecision(8)} mm</option>`).join('');if(model.pins.length>1)$('pinB').value='1';$('controls').hidden=model.pins.length<2;$('status').textContent=`识别到 ${model.pins.length} 个垂直于基准面的外圆柱轴心。${model.pins.length<2?'不足两个，请检查模型。':'请核对候选和方向。'}`;angle=.35;tilt=.65;zoom=1;draw()}catch(e){$('status').textContent=e.message;$('importBar').value=0;$('importStage').textContent='加载未完成';$('importNote').textContent=e.message}finally{clearInterval(importTimer);$('file').disabled=false;$('cloud').disabled=false;$('cancelLocal').hidden=true}};
-$('file').onchange=()=>loadFile('local');
+async function loadFile(mode='local'){const file=selectedFile;if(!file||$('file').disabled)return;activeMode=mode;localAbort=new AbortController();$('cloud').disabled=true;$('cancelLocal').hidden=mode!=='local';model=null;invalidate();$('controls').hidden=true;$('status').textContent='正在解析 STEP 实体及圆柱轴线…';$('file').disabled=true;importPercent=0;importState={stage:'uploading',percent:0};importStarted=Date.now();importTimer=setInterval(()=>showProgress(importState),1000);try{model=await (mode==='local'?importLocal(file,showProgress,{signal:localAbort.signal}):importModel(file,showProgress));$('previewNote').textContent=model.previewNote||'';$('basisNote').textContent=model.basisNote+(model.outer?` 外形：长 ${model.outer.length.toFixed(3)} × 宽 ${model.outer.width.toFixed(3)} mm。${model.outer.method}`:' 未识别到载条实体，外形长宽需手动核对。');for(const key of ['pinA','pinB'])$(key).innerHTML=model.pins.map(p=>`<option value="${p.id}">候选 ${p.id+1} · Ø ${p.diameter.toPrecision(8)} mm</option>`).join('');if(model.pins.length>1)$('pinB').value='1';$('controls').hidden=model.pins.length<2;$('status').textContent=`识别到 ${model.pins.length} 个垂直于基准面的外圆柱轴心。${model.pins.length<2?'不足两个，请检查模型。':'请核对候选和方向。'}`;angle=.35;tilt=.65;zoom=1;draw()}catch(e){$('status').textContent=e.message;$('importBar').value=0;$('importStage').textContent='加载未完成';$('importNote').textContent=e.message}finally{clearInterval(importTimer);$('file').disabled=false;$('cloud').disabled=false;$('cancelLocal').hidden=true}};
+function selectFile(files){
+ if($('file').disabled)return;
+ if(files.length!==1){$('status').textContent='请每次只选择一个 STEP/STP 文件。';return}
+ const file=files[0];
+ if(!/\.(step|stp)$/i.test(file.name)){$('status').textContent='仅支持 STEP/STP 文件，请重新选择。';return}
+ if(!file.size||file.size>50*1024*1024){$('status').textContent='文件为空或超过 50 MB，请重新选择。';return}
+ selectedFile=file;$('selectedName').textContent='已选择：'+file.name;
+ loadFile('local');
+}
+$('file').onchange=()=>selectFile(Array.from($('file').files));
+const dropZone=$('dropZone');let dragDepth=0;
+const hasFiles=e=>Array.from(e.dataTransfer?.types||[]).includes('Files');
+function resetDrop(){dragDepth=0;dropZone.classList.remove('drag-over')}
+for(const type of ['dragover','drop'])window.addEventListener(type,e=>{if(hasFiles(e))e.preventDefault()});
+dropZone.addEventListener('dragenter',e=>{if(!hasFiles(e))return;e.preventDefault();if($('file').disabled)return;dragDepth++;dropZone.classList.add('drag-over')});
+dropZone.addEventListener('dragover',e=>{if(!hasFiles(e))return;e.preventDefault();e.dataTransfer.dropEffect=$('file').disabled?'none':'copy'});
+dropZone.addEventListener('dragleave',e=>{if(--dragDepth<=0)resetDrop()});
+dropZone.addEventListener('drop',e=>{
+ e.preventDefault();e.stopPropagation();resetDrop();
+ if($('file').disabled)return;
+ const files=Array.from(e.dataTransfer?.files||[]);
+ selectFile(files);
+ // Keep the native filename in sync when the browser supports assignment.
+ if(files.length===1&&selectedFile===files[0])try{$('file').files=e.dataTransfer.files}catch{}
+});
+window.addEventListener('drop',resetDrop);window.addEventListener('dragend',resetDrop);
+
 $('cloud').onclick=()=>loadFile('cloud');
 $('cancelLocal').onclick=()=>localAbort?.abort();
 $('clearCache').onclick=async()=>{try{await clearLocalCache();$('status').textContent='本机测量缓存已清除。'}catch{$('status').textContent='当前浏览器无法访问缓存。'}};
