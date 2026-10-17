@@ -1,19 +1,19 @@
 import {api} from './api.mjs?v=staged-import-1';
 
 export const stageNames={
- uploading:'上传文件',receiving:'上传完成，等待服务器接收',starting:'启动 CAD 解析',
+ localread:'读取本机文件',engine:'加载本地 CAD 引擎',uploading:'上传文件',receiving:'上传完成，等待服务器接收',starting:'启动 CAD 解析',
  reading:'读取 STEP 文件',transferring:'转换 CAD 实体',basis:'识别载条基准面',
  outline:'测量外形长宽',pins:'识别定位销轴心',preview:'生成简化三维预览',
  saving:'整理测量结果',downloading:'下载测量结果',done:'加载完成'
 };
-export const stageStep=stage=>stage==='uploading'||stage==='receiving'?1:
+export const stageStep=stage=>['localread','engine','uploading','receiving'].includes(stage)?1:
  ['starting','reading','transferring'].includes(stage)?2:
  ['basis','outline','pins'].includes(stage)?3:
  ['preview','saving','downloading'].includes(stage)?4:5;
 
 // Stage weights are estimates, never elapsed-time or geometric completion measurements.
 export function overallPercent(state,previous=0){
- const weights={receiving:15,starting:18,reading:20,transferring:30,basis:65,outline:70,pins:75,preview:85,saving:92,downloading:96,done:100};
+ const weights={localread:5,engine:10,receiving:15,starting:18,reading:20,transferring:30,basis:65,outline:70,pins:75,preview:85,saving:92,downloading:96,done:100};
  const next=state.stage==='uploading'?Math.round((state.percent||0)*.15):(weights[state.stage]??previous);
  return state.stage==='done'?100:Math.min(99,Math.max(previous,next));
 }

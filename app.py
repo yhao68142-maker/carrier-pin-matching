@@ -1,5 +1,7 @@
 from pathlib import Path
 import json
+import mimetypes
+mimetypes.add_type("text/javascript", ".mjs")
 import tempfile
 import logging
 import threading
@@ -49,6 +51,10 @@ def process_job(job_id):
         (job['path']/'model.step').unlink(missing_ok=True)
         analysis_lock.release()
         timer=threading.Timer(600,expire_job,args=(job_id,));timer.daemon=True;timer.start()
+
+@app.get('/local-engine/b5ff984.wasm')
+def local_engine():
+    return FileResponse(ROOT/'static'/'vendor'/'occt.wasm.gz',media_type='application/wasm',headers={'Content-Encoding':'gzip','Cache-Control':'public, max-age=31536000, immutable'})
 
 @app.post('/api/jobs',status_code=202)
 def create_job(file: UploadFile):
