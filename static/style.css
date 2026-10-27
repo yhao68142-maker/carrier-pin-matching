@@ -9,3 +9,5 @@
 .mode-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.mode-actions button{font-size:12px}button[hidden]{display:none}
 
 .drop.drag-over{background:#dcefe4;border:2px solid #23674d;box-shadow:0 0 0 4px #23674d20}.drop #selectedName{display:block;overflow-wrap:anywhere;margin-top:8px}
+
+.offline-panel{border:1px solid #cbded2;border-radius:14px;background:#edf6ef;padding:16px 20px;margin-bottom:24px}.offline-panel>div{display:flex;align-items:center;gap:24px;flex-wrap:wrap}.offline-panel p{font-size:13px;margin:10px 0 0}.offline-panel label{margin:0}

@@ -163,6 +163,10 @@ def match(query: Query):
     try: return exact_matches(records,query.x,query.y)
     except ValueError as exc: raise HTTPException(400,str(exc)) from exc
 
+@app.get('/offline-sw.js')
+def offline_service_worker():
+    return FileResponse(ROOT/'static'/'offline-sw.js',media_type='text/javascript',headers={'Cache-Control':'no-cache','Service-Worker-Allowed':'/'})
+
 @app.get('/')
 def home(): return FileResponse(ROOT/'static'/'index.html')
 
